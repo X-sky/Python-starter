@@ -114,3 +114,4 @@ draft.md
 **/python/markdowns
 **/__pycache__
 **/*_env
+db.sqlite3

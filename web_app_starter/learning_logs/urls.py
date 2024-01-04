@@ -13,4 +13,5 @@ urlpatterns = [
     path("topics/<int:topic_id>/", views.topic, name="topic"),
     # 显示所有主题
     path("topics/", views.topics, name="topics"),
+    path("new_topic/", views.new_topic, name="new_topic"),
 ]
