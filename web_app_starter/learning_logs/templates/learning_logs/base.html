@@ -6,9 +6,16 @@
     <title>Test Page</title>
   </head>
   <body>
-    <p>
-      <a href="{% url 'learning_logs:index' %}">Learning Log</a>
-    </p>
+    <ul>
+      <li>
+        <a href="{% url 'learning_logs:index' %}">Learning Log</a>
+        <ol>
+          <li>
+            <a href="{% url 'learning_logs:topics' %}">Topics</a>
+          </li>
+        </ol>
+      </li>
+    </ul>
 
     {% block content %}
     <p>default Template</p>
