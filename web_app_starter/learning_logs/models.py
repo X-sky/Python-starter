@@ -12,14 +12,16 @@ class Topic(models.Model):
         """返回模型的字符串表示"""
         return self.text
 
+
 class Entry(models.Model):
     """学到的具体知识"""
+
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = 'entries'
+        verbose_name_plural = "entries"
 
     def __str__(self):
         if len(self.text) > 50:
