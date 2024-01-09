@@ -25,3 +25,21 @@ def new_blog(request):
 
     context = {"form": form, "title": "Create Blog"}
     return render(request, "blogs/create_blog.html", context)
+
+
+def edit_blog(request, blog_id):
+    """编辑既有博客"""
+    blog = BlogPost.objects.get(id=blog_id)
+
+    if request.method != "POST":
+        # 初次请求，使用当前条目填充表单
+        form = BlogForm(instance=blog)
+    else:
+        # POST提交的数据，对数据进行处理
+        form = BlogForm(instance=blog, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("blogs:blog_list")
+
+    context = {"blog": blog, "form": form, "title": f"Edit Blog {blog.title}"}
+    return render(request, "blogs/edit_blog.html", context)

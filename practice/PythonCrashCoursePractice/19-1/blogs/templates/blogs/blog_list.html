@@ -15,7 +15,9 @@
       <li>
         title: {{ blog.title }}<br />
         text: {{ blog.text }}<br />
+          <a href="{% url 'blogs:edit_blog' blog.id %}">Edit Blog</a>
       </li>
+      <p style="height: 1px; border-bottom: 1px dotted #666"></p>
       {% empty %}
       no blogs here
       {% endfor %}

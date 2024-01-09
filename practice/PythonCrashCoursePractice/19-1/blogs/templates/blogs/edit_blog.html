@@ -1,0 +1,8 @@
+<h1>{{ title }}</h1>
+<form action="{% url 'blogs:edit_blog' blog.id %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button name="submit">
+    Edit Blog
+  </button>
+</form>
