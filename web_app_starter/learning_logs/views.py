@@ -6,6 +6,12 @@ from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 
 
+def check_topic_owner(topic, user):
+    """检查主题是否属于当前用户"""
+    if topic.owner != user:
+        raise Http404
+
+
 # Create your views here.
 def index(request):
     """学习笔记的主页"""
@@ -24,9 +30,8 @@ def topics(request):
 def topic(request, topic_id="1"):
     """显示单个主题"""
     topic = Topic.objects.get(id=topic_id)
-    # 确认请求的主题属于当前用户
-    if topic.owner != request.user:
-        raise Http404
+
+    check_topic_owner(topic, request.user)
 
     entries = topic.entry_set.order_by("-date_added")
     context = {"topic": topic, "entries": entries}
@@ -58,8 +63,7 @@ def new_entry(request, topic_id):
     """在特定主题中添加条目"""
     topic = Topic.objects.get(id=topic_id)
 
-    if topic.owner != request.user:
-        raise Http404
+    check_topic_owner(topic, request.user)
 
     if request.method != "POST":
         form = EntryForm()
@@ -79,6 +83,8 @@ def new_entry(request, topic_id):
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
+
+    check_topic_owner(topic, request.user)
 
     if request.method != "POST":
         # 初次请求：使用当前条目填充表单
