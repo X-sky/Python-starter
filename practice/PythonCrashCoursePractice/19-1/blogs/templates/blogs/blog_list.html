@@ -6,6 +6,10 @@
     <title>Test Page</title>
   </head>
   <body>
+    <h1>{{ title }}</h1>
+    <p>
+      <a href="{% url 'blogs:new_blog' %}">Add Blog</a>
+    </p>
     <ol>
       {% for blog in blogs %}
       <li>
