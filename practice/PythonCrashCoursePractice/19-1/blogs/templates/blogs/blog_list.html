@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Page</title>
+  </head>
+  <body>
+    <ol>
+      {% for blog in blogs %}
+      <li>
+        title: {{ blog.title }}<br />
+        text: {{ blog.text }}<br />
+      </li>
+      {% empty %}
+      no blogs here
+      {% endfor %}
+    </ol>
+  </body>
+</html>
