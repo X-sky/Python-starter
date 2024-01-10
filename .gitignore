@@ -115,3 +115,4 @@ draft.md
 **/__pycache__
 **/*_env
 db.sqlite3
+.idea

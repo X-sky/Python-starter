@@ -1,28 +1,74 @@
+{% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test Page</title>
+    <title>Learning Log</title>
+    {# Load CSS and JavaScript #} {% bootstrap_css %} {% bootstrap_javascript %}
   </head>
   <body>
-    <h1>
-      <a href="{% url 'learning_logs:index' %}"> Learning Log </a>
-      &nbsp;&nbsp;-&nbsp;&nbsp;
-      <small><a href="{% url 'learning_logs:topics' %}"> Topics </a></small>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <small>
-        {% if user.is_authenticated %} Hello, {{ user.username }}.
-        <a href="{% url 'users:logout' %}">log out</a>
-        {% else %} &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="{% url 'users:register' %}">register</a> &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="{% url 'users:login' %}">log in</a>
-        {% endif %}
-      </small>
-    </h1>
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+      <a class="navbar-brand" href="{% url 'learning_logs:index'%}">
+        Learning Log
+      </a>
 
-    {% block content %}
-    <p>default Template</p>
-    {% endblock content %}
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarCollapse"
+        aria-controls="navbarCollapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'learning_logs:topics'%}">
+              Topics
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown d-flex align-items-center">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Hello, {{ user.username }}.
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="{% url 'users:logout' %}">
+                  Log out
+                </a>
+              </li>
+            </ul>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <main role="main" class="container">
+      <div class="pb-2 mb-2 border-bottom">
+        {% block page_header %}{% endblock page_header %}
+      </div>
+      <div>{% block content %}{% endblock content %}</div>
+    </main>
   </body>
 </html>
